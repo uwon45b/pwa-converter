@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pwa-converter", "pwa-converter\pwa-converter.csproj", "{A704C066-10CC-4A39-815C-5B77FE8807AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pwa-converter.tests", "pwa-converter.tests\pwa-converter.tests.csproj", "{5B987483-9867-4CBB-951B-5ED7E19E3886}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A704C066-10CC-4A39-815C-5B77FE8807AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A704C066-10CC-4A39-815C-5B77FE8807AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A704C066-10CC-4A39-815C-5B77FE8807AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A704C066-10CC-4A39-815C-5B77FE8807AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B987483-9867-4CBB-951B-5ED7E19E3886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B987483-9867-4CBB-951B-5ED7E19E3886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B987483-9867-4CBB-951B-5ED7E19E3886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B987483-9867-4CBB-951B-5ED7E19E3886}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B4B651-07FF-425A-A211-97EA2256930E}
+	EndGlobalSection
+EndGlobal

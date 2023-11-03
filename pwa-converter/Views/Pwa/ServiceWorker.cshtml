@@ -1,0 +1,65 @@
+﻿@model pwa_converter.Models.ViewModels.ServiceWorkerViewModel
+@{
+    ViewData["Title"] = "Service Worker Generation Page";
+}
+
+<article class="grow flex flex-col px-2 pt-24">
+    <h1 class="text-primary font-black font-archivo text-4xl text-center leading-none mb-6">Final Step, Create a Service Worker</h1>
+    <p class="text-grey text-lg text-center leading-relaxed mb-8 max-w-[55ch] mx-auto">
+        A service worker is a crucial element of PWA. It can intercept network requests and enables fast loading, offline access, and other capabilities.
+    </p>
+
+    <div class="px-8">
+        <form method="post" asp-route="ServiceWorkerPost" class="mx-auto max-w-[688px] border-primary border-[1px] shadow-md rounded-md px-8 flex flex-col gap-6 py-4 mb-40">
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-col">
+                    <div class="mb-2">
+                        <label asp-for="CacheContent"></label>
+                        <span data-tip="To improve the website performance and offline experience, resources of your website can be cached. Start by adding all the minimum resources needed to render the UI, including HTML pages, CSS files, images, and JavaScript files."
+                              class="tooltip leading-relaxed text-lg hover:cursor-pointer before:text-base before:cursor-default">
+                            &#9432;
+                        </span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:gap-8">
+                        <div class="flex flex-col sm:grow">
+                            <input asp-for="CacheContent" type="text" placeholder="index.html" class="border-[1px] border-primary rounded-md px-4 h-8 focus:outline-primary-hover focus-visible:outline-1 focus:outline sm:mt-2" />
+                            <span asp-validation-for="CacheContent" class="text-red mt-3 text-sm"></span>
+                        </div>
+                    
+                        <input type="button" id="btn-add-cache-content" value="Add" class="bg-primary text-white self-end block text-xl rounded-3xl px-4 py-2 hover:cursor-pointer hover:bg-primary-hover sm:self-start" />
+                    </div>
+                </div>
+                <div id="cache-content-container" class="flex gap-4 flex-wrap">
+
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="mb-2">
+                        <label asp-for="CachingStrategy"></label>
+                        <span data-tip="Caching strategy is how the PWA utilises the cached assets. Stale while revalidate strategy is recommended.
+Stale While Revalidate - always serves the cached assets while updating the cache in the background to keep it up to date.
+Cache First / Network First - Cache first always servers the cached assets and falls back to the network if not in the cache. Network first is the opposite.
+Cache Only / Network Only - cache only never goes to the network. Network only never uses the cache."
+                              class="tooltip text-lg hover:cursor-pointer before:text-base before:cursor-default">
+                            &#9432;
+                        </span>
+                    </div>
+                    <select asp-for="CachingStrategy" class="border-[1px] border-primary rounded-md px-4 h-8 focus:outline-primary-hover focus-visible:outline-1 focus:outline bg-white max-w-[522px]">
+                        <option value="stale-while-revalidate">Stale-While-Revalidate</option>
+                        <option value="cache-first">Cache First</option>
+                        <option value="network-only">Network First</option>
+                        <option value="cache-only">Cache Only</option>
+                        <option value="network-only">Network Only</option>
+                    </select>
+                    <span asp-validation-for="CachingStrategy" class="text-red mt-3 text-sm"></span>
+                    </div>
+                </div>
+            <input id="btn-create-sw" type="submit" value="Create" class="bg-primary text-white mx-auto block text-xl rounded-3xl px-8 py-2 hover:cursor-pointer hover:bg-primary-hover" />
+        </form>
+
+    </div>
+</article>
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

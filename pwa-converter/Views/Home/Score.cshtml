@@ -1,0 +1,93 @@
+﻿@model pwa_converter.Models.ViewModels.ScoreViewModel
+@{
+    ViewData["Title"] = "Score Page";
+    var performanceCategory = Model.AuditResults[pwa_converter.Enums.Category.Performance];
+    var pwaCategory = Model.AuditResults[pwa_converter.Enums.Category.Pwa];
+}
+
+<article class="grow flex flex-col px-2 gap-20 my-32">
+    @foreach (var category in @Model.AuditResults)
+    {
+        <div class="max-w-[1400px] border-primary border-[1px] shadow-md rounded-md px-8 flex flex-col gap-6 py-4 w-full self-center @(category.Key == pwa_converter.Enums.Category.Performance ? "order-1" : "order-none")">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-4 items-center md:flex-row">
+                        <h2 class="text-primary font-black font-archivo text-3xl leading-none">@(category.Key == pwa_converter.Enums.Category.Pwa ? "PWA" : "Performance")</h2>
+                        <div class="flex gap-4 md:grow">
+                            <p class="text-2xl rounded-xl flex items-center
+                                      @if(category.Key == pwa_converter.Enums.Category.Pwa)
+                                      {
+                                        var parcentageOfPasses = ((double) Model.NumOfPassesPwa / Model.TotalNumOfPwa) * 100;
+                                        if(parcentageOfPasses >= 80)
+                                        {
+                                            @("text-white bg-green")
+                                        }else if(parcentageOfPasses >= 60)
+                                        {
+                                            @("text-black bg-yellow")
+                                        }
+                                        else{
+                                            @("text-white bg-red")
+                                        }
+                                      }else{
+                                          var parcentageOfPasses = ((double) Model.NumOfPassesPerformance / Model.TotalNumOfPerformance) * 100;
+                                        if(parcentageOfPasses >= 80)
+                                        {
+                                            @("text-white bg-green")
+                                        }else if(parcentageOfPasses >= 60)
+                                        {
+                                            @("text-black bg-yellow")
+                                        }
+                                        else{
+                                            @("text-white bg-red")
+                                        }
+                                      }
+                                      px-2 font-bold">
+                                @(category.Key == pwa_converter.Enums.Category.Pwa ? $"{Model.NumOfPassesPwa} / {Model.TotalNumOfPwa}" : $"{Model.NumOfPassesPerformance} / {Model.TotalNumOfPerformance}")
+                            </p>
+                            <div class="grow flex justify-end items-center">
+                            <a class="bg-primary text-white rounded-3xl px-4 py-2 hover:cursor-pointer hover:bg-primary-hover text-xl" asp-route="@(category.Key == pwa_converter.Enums.Category.Pwa ? "IconGet" : "OptimiseGet")">@(category.Key == pwa_converter.Enums.Category.Pwa ? "Convert" : "Optimise Images")</a>
+                            </div>
+                        </div>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                    @foreach (var auditResult in category.Value)
+                    {
+                            <div class="flex flex-col">
+                                <p class="audit-result-title rounded-md text-lg text-center font-archivo px-2 hover:cursor-pointer
+                                         @if(auditResult.Score == 1)
+                                         {
+                                            @("text-white bg-green")
+                                         }else if(auditResult.Score > 0.6)
+                                         {
+                                            @("text-black bg-yellow")
+                                         }else
+                                         {
+                                             @("text-white bg-red")
+                                         }">
+                                @auditResult.Audit.Title
+                                <span data-tip="@auditResult.Audit.Description"
+                                      class="tooltip-top leading-relaxed text-lg hover:cursor-pointer before:text-base before:cursor-default ml-4">
+                                    &#9432;
+                                </span>
+                            </p>
+                                @if(auditResult.Score < 1){
+                                    <div class="audit-result-fixes border-[1px] border-primary mt-2 rounded-md p-2 grow hidden">
+                                        <p class="font-bold font-lg font-archivo">How to Improve</p>
+                                        <ul class="flex flex-col gap-2 mt-2">
+                                            @foreach (var fix in @auditResult.Audit.Fixes)
+                                            {
+                                                 <li class="leading-relaxed max-w-[55ch]">@Html.Raw(fix)</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</article>
+
+@section Scripts{
+    <script src="~/js/score.js"></script>
+}

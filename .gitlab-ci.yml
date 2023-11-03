@@ -1,0 +1,52 @@
+stages:
+    - build
+    - test
+    - deploy
+
+build:
+    stage: build
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    before_script:
+        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+        - ". ~/.nvm/nvm.sh"
+        - nvm install node
+    script: 
+        - cd pwa-converter
+        - npm install
+        - dotnet build
+
+test:
+    stage: test
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    before_script:
+        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+        - ". ~/.nvm/nvm.sh"
+        - nvm install node
+    script:
+        - cd pwa-converter
+        - npm install
+        - dotnet test ../
+
+deploy:
+    stage: deploy
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    only:
+        refs:
+            - main
+    variables:
+        WINDOWS_PROJECT_LOCATION: "C:\\inetpub\\wwwroot\\fyp-pwa-converter"
+        LINUX_PROJECT_LOCATION: "C:/inetpub/wwwroot/fyp-pwa-converter"
+        PUBLISH_LOCATION: "bin/Release/net6.0/publish"
+    before_script:
+        - apt-get update && apt-get -y install openssh-client
+        - apt-get install sshpass
+        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+        - ". ~/.nvm/nvm.sh"
+        - nvm install node
+
+    script:
+        - cd pwa-converter
+        - npm install
+        - dotnet publish -c Release
+        - sshpass -p "$PASSWORD" ssh -o "StrictHostKeyChecking=no" $USERNAME@$HOST 'iisreset /stop & rmdir /s /q $WINDOWS_PROJECT_LOCATION & mkdir $WINDOWS_PROJECT_LOCATION & iisreset /start'
+        - sshpass -p "$PASSWORD" scp -o "StrictHostKeyChecking=no" -r $PUBLISH_LOCATION/* $USERNAME@$HOST:$LINUX_PROJECT_LOCATION

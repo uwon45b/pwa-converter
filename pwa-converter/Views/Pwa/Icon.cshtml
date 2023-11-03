@@ -1,0 +1,15 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Icon Generation Page";
+}
+
+<article class="grow flex flex-col justify-center px-2">
+    <h1 class="text-primary font-black font-archivo text-4xl text-center leading-none mb-6">Let’s Start With Creating an App Icon</h1>
+    <p class="text-grey text-lg text-center leading-relaxed mb-12 max-w-[55ch] mx-auto">
+            App icon gets displayed anywhere native apps are displayed after installation such as the home screen and taskbar.
+        </p>
+    <form method="post" action="https://realfavicongenerator.net/api/favicon_generator">
+        <input type="hidden" name="json_params" value='{"favicon_generation":{"api_key":"d21ab41a88c9588206d94db12ef79ff935e964db","master_picture":{"type":"no_picture","demo":"false"},"files_location":{"type":"path", "path": "/favicons"},"callback":{"type":"url","url":"@Model/Pwa/FaviconGeneratorApi","short_url":"false","path_only":"false"}}}' />
+        <input type="submit" value="Start" class="bg-primary text-white mx-auto block text-xl rounded-3xl px-8 py-2 hover:cursor-pointer hover:bg-primary-hover"/>
+    </form>
+</article>

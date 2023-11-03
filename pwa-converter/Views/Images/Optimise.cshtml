@@ -1,0 +1,29 @@
+﻿@model pwa_converter.Models.ViewModels.OptimiseViewModel
+
+@{
+    ViewData["Title"] = "Image Optimisation Page";
+}
+
+<article class="grow flex flex-col justify-center px-2 pt-28">
+    <h1 class="text-primary font-black font-archivo text-4xl text-center leading-none mb-6">Optimise Images</h1>
+    <p class="text-grey text-lg text-center leading-relaxed mb-12 max-w-[55ch] mx-auto">
+        Your images will be converted into WebP images, which is the most performant format.
+    </p>
+    <form method="post" enctype="multipart/form-data" asp-route="OptimisePost" class="mx-auto w-9/12 max-w-[688px] border-primary border-[1px] shadow-md rounded-md px-8 flex flex-col md:gap-6 py-4 mb-40 items-center">
+        <div class="flex flex-col md:flex-row gap-4 mobilel:self-start">
+            <label asp-for="Images" class="bg-primary text-white block text-xl rounded-md px-4 py-2 hover:cursor-pointer hover:bg-primary-hover self-center mobilel:self-start"></label>
+            <span id="images-error-message" asp-validation-for="Images" class="text-red mt-3 text-sm"></span>
+        </div>
+        <div id="image-chosen" class="flex flex-col gap-4 items-center mobilel:flex-row mobilel:self-start mobilel:flex-wrap">
+            <div class="border-[1px] border-primary text-primary px-4 rounded-md">
+                No Images Chosen
+            </div>
+        </div>
+        <input asp-for="Images" type="file" multiple="multiple" accept="images/png, image/jpeg, image/jpg" class="hidden" />
+        <input id="btn-optimise" type="submit" value="Optimise" class="bg-primary text-white block text-xl rounded-3xl px-8 py-2 hover:cursor-pointer hover:bg-primary-hover mt-12"/>
+    </form>
+</article>
+
+@section Scripts{
+    <script src="~/js/image-optimisation.js"></script>
+}

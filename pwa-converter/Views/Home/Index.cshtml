@@ -1,0 +1,22 @@
+﻿@model pwa_converter.Models.ViewModels.IndexViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<article class="grow flex flex-col justify-center px-2">
+    <h1 class="text-primary font-black font-archivo text-4xl text-center leading-none mb-6">Convert Your Website Into a PWA</h1>
+    <p class="text-grey text-lg text-center leading-relaxed mb-12 max-w-[55ch] mx-auto">
+        Let’s start with checking the state of your website.
+    </p>
+    <form method="post" asp-route="IndexPost" class="flex flex-col gap-4 sm:flex-row sm:justify-center mb-20">
+        <div class="flex flex-col">
+            <input asp-for="Url" type="text" placeholder="Enter the URL to your website" class="mx-auto w-[75vw] sm:mx-0 sm:max-w-[360px] border-[1px] border-primary rounded-md px-4 h-8 focus:outline-primary-hover focus-visible:outline-1 focus:outline sm:mt-2" />
+            <span asp-validation-for="Url" class="text-red mt-3 text-sm"></span>
+        </div>
+        <input type="submit" value="Check" class="self-end mr-8 sm:mr-0 sm:self-auto sm:self-center bg-primary text-white block text-xl rounded-3xl px-8 py-2 hover:cursor-pointer hover:bg-primary-hover" />
+    </form>
+</article>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

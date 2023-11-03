@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>pwa_converter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\pwa\**" />
+    <Compile Remove="wwwroot\temp\**" />
+    <Content Remove="wwwroot\pwa\**" />
+    <Content Remove="wwwroot\temp\**" />
+    <EmbeddedResource Remove="wwwroot\pwa\**" />
+    <EmbeddedResource Remove="wwwroot\temp\**" />
+    <None Remove="wwwroot\pwa\**" />
+    <None Remove="wwwroot\temp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckBuilt Include="wwwroot/css/site.css" Original="wwwroot/css/tailwind.css" />
+    <UpToDateCheckBuilt Include="postcss.config.js" Set="Css" />
+    <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lighthouse\" />
+  </ItemGroup>
+
+  <Target Name="Tailwind" BeforeTargets="Build">
+    <Exec Command="npm run tailwind" />
+  </Target>
+
+</Project>
